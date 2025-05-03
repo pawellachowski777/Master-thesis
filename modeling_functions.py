@@ -11,9 +11,9 @@ def evaluate_model(df_evaluate, y_true, y_pred, model_name: str, with_gd: bool):
     row = {
         "Model": model_name,
         "Z gospodarstwami domowymi": with_gd,
-        "R-Squared": r2,
-        "Mean Absolute Error (MAE)": mae,
-        "Root Mean Squared Error (RMSE)": rmse,
+        "R-Squared": round(r2, 2),
+        "Mean Absolute Error (MAE)": round(mae, 2),
+        "Root Mean Squared Error (RMSE)": round(rmse, 2),
 
     }
     df_evaluate = pd.concat([df_evaluate, pd.DataFrame([row])])
@@ -25,7 +25,8 @@ def plot_features_importance(features, feature_importance, model: str):
     # Plot feature importance
     plt.barh(features, feature_importance)
     plt.xlabel("Feature Importance")
-    plt.title(f"{model} - Feature Importance")
+    plt.yticks(rotation=25)
+    plt.title(f"{model} - Istotność cech")
     # Add values at the end of the bars
     for index, value in enumerate(feature_importance):
         plt.text(value, index, f'{value:.2f}')  # Adjust format as needed
